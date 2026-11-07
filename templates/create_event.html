@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% block title %}{{ 'Edit Event' if event else 'Create Event' }}{% endblock %}
+{% block content %}
+<section class="page-hero compact"><div class="container"><span class="eyebrow">ADMIN</span><h1>{{ 'Edit event' if event else 'Create a new event' }}</h1><p>Provide the details attendees need to know.</p></div></section>
+<section class="section"><div class="container narrow"><form class="form form-card" method="post">
+<div class="form-grid"><label>Event title<input name="title" value="{{ event.title if event else '' }}" required></label><label>Category<input name="category" value="{{ event.category if event else '' }}" placeholder="Technology" required></label><label>Date<input type="date" name="date" value="{{ event.date if event else '' }}" required></label><label>Time<input name="time" value="{{ event.time if event else '' }}" placeholder="10:00 AM" required></label><label>Location<input name="location" value="{{ event.location if event else '' }}" required></label><label>Capacity<input type="number" min="1" name="capacity" value="{{ event.capacity if event else 100 }}" required></label></div>
+<label>Image URL<input name="image" value="{{ event.image if event else '' }}" placeholder="https://..."></label>
+<label>Description<textarea name="description" rows="6" required>{{ event.description if event else '' }}</textarea></label>
+<div class="form-actions"><a class="btn ghost" href="{{ url_for('admin_dashboard') }}">Cancel</a><button class="btn primary" type="submit">{{ 'Save changes' if event else 'Create event' }} →</button></div>
+</form></div></section>
+{% endblock %}

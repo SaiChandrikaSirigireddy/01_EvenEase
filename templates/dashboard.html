@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% block title %}My Dashboard{% endblock %}
+{% block content %}
+<section class="page-hero compact"><div class="container"><span class="eyebrow">MY SPACE</span><h1>Hello, {{ user.name.split()[0] }} 👋</h1><p>Keep track of the experiences you've signed up for.</p></div></section>
+<section class="section"><div class="container">
+<div class="dashboard-top"><div class="profile-card"><div class="profile-avatar">{{ user.name[0]|upper }}</div><div><h3>{{ user.name }}</h3><p>{{ user.email }}</p><span class="status-pill">Active member</span></div></div><a class="btn primary" href="{{ url_for('events') }}">Discover more events →</a></div>
+<h2 class="subheading">My registrations <span>{{ registrations|length }}</span></h2>
+<div class="registration-list">{% for event in registrations %}<div class="registration-item"><div class="reg-date"><strong>{{ event.date[8:10] }}</strong><span>{{ event.date[5:7] }}/{{ event.date[:4] }}</span></div><div class="reg-info"><h3>{{ event.title }}</h3><p>📍 {{ event.location }} &nbsp; • &nbsp; 🕒 {{ event.time }}</p></div><a class="text-link" href="{{ url_for('event_details', event_id=event.id) }}">View →</a><form method="post" action="{{ url_for('cancel_registration', event_id=event.id) }}"><button class="icon-button" title="Cancel">×</button></form></div>{% else %}<div class="empty-state"><h3>No registrations yet</h3><p>Explore events and reserve your first experience.</p><a class="btn primary" href="{{ url_for('events') }}">Browse events</a></div>{% endfor %}</div>
+</div></section>
+{% endblock %}

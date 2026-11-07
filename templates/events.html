@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block title %}Events{% endblock %}
+{% block content %}
+<section class="page-hero"><div class="container"><span class="eyebrow">EXPLORE</span><h1>Find your next experience.</h1><p>Browse upcoming events and discover something worth attending.</p></div></section>
+<section class="section"><div class="container">
+  <form class="filter-bar" method="get">
+    <div class="search-box">⌕<input name="q" value="{{ q }}" placeholder="Search events, locations..."></div>
+    <select name="category"><option value="">All categories</option>{% for c in categories %}<option value="{{ c.category }}" {% if category==c.category %}selected{% endif %}>{{ c.category }}</option>{% endfor %}</select>
+    <button class="btn primary" type="submit">Search</button>
+  </form>
+  <div class="event-grid">
+    {% for event in events %}
+    <article class="event-card">
+      <a href="{{ url_for('event_details', event_id=event.id) }}" class="card-image" style="background-image:url('{{ event.image }}')"><span class="tag">{{ event.category }}</span></a>
+      <div class="card-body"><div class="date-chip"><strong>{{ event.date[8:10] }}</strong><span>{{ event.date[5:7] }}/{{ event.date[:4] }}</span></div><div class="card-content"><h3><a href="{{ url_for('event_details', event_id=event.id) }}">{{ event.title }}</a></h3><p>📍 {{ event.location }}</p><p>🕒 {{ event.time }}</p><a class="card-link" href="{{ url_for('event_details', event_id=event.id) }}">View details →</a></div></div>
+    </article>
+    {% else %}<div class="empty-state"><h3>No events found</h3><p>Try a different search or category.</p></div>{% endfor %}
+  </div>
+</div></section>
+{% endblock %}

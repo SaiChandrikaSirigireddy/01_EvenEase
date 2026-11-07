@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block title %}Admin Dashboard{% endblock %}
+{% block content %}
+<section class="page-hero compact"><div class="container"><span class="eyebrow">ADMINISTRATION</span><h1>Control center.</h1><p>Manage events, users and registrations from one dashboard.</p></div></section>
+<section class="section"><div class="container">
+<div class="admin-stats"><div><span>Events</span><strong>{{ stats.events }}</strong></div><div><span>Users</span><strong>{{ stats.users }}</strong></div><div><span>Registrations</span><strong>{{ stats.registrations }}</strong></div></div>
+<div class="admin-heading"><div><span class="eyebrow">EVENT CATALOG</span><h2>Manage events</h2></div><a class="btn primary" href="{{ url_for('create_event') }}">+ Create event</a></div>
+<div class="table-wrap"><table><thead><tr><th>Event</th><th>Date</th><th>Category</th><th>Registrations</th><th>Actions</th></tr></thead><tbody>{% for e in events %}<tr><td><strong>{{ e.title }}</strong><small>{{ e.location }}</small></td><td>{{ e.date }}</td><td><span class="status-pill">{{ e.category }}</span></td><td>{{ e.registrations }} / {{ e.capacity }}</td><td class="actions"><a href="{{ url_for('edit_event', event_id=e.id) }}">Edit</a><form method="post" action="{{ url_for('delete_event', event_id=e.id) }}" onsubmit="return confirm('Delete this event?')"><button>Delete</button></form></td></tr>{% endfor %}</tbody></table></div>
+<div class="admin-heading second"><div><span class="eyebrow">RECENT ACTIVITY</span><h2>Registrations</h2></div></div>
+<div class="table-wrap"><table><thead><tr><th>Attendee</th><th>Email</th><th>Event</th><th>Registered</th></tr></thead><tbody>{% for r in registrations %}<tr><td>{{ r.user_name }}</td><td>{{ r.email }}</td><td>{{ r.event_title }}</td><td>{{ r.registered_at[:16].replace('T',' ') }}</td></tr>{% else %}<tr><td colspan="4">No registrations yet.</td></tr>{% endfor %}</tbody></table></div>
+</div></section>
+{% endblock %}

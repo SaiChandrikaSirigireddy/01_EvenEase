@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+{% block title %}Home{% endblock %}
+{% block content %}
+<section class="hero">
+  <div class="hero-glow"></div>
+  <div class="container hero-grid">
+    <div class="hero-copy">
+      <span class="eyebrow">THE SMARTER WAY TO MANAGE EVENTS</span>
+      <h1>Bring people together.<br><span>Make moments matter.</span></h1>
+      <p>Discover exciting events, register in seconds, and manage every experience from one simple platform.</p>
+      <div class="hero-actions">
+        <a class="btn primary" href="{{ url_for('events') }}">Explore Events <span>→</span></a>
+        <a class="btn ghost" href="{{ url_for('register') }}">Create an account</a>
+      </div>
+      <div class="hero-trust"><span>✦</span> Simple &nbsp; <span>✦</span> Secure &nbsp; <span>✦</span> Organized</div>
+    </div>
+    <div class="hero-visual">
+      <div class="floating-card fc-one"><span class="mini-icon">📅</span><div><strong>Upcoming</strong><small>6 events available</small></div></div>
+      <div class="event-preview">
+        <div class="preview-image"></div>
+        <div class="preview-body"><span class="tag">TECHNOLOGY</span><h3>Developer Hackathon</h3><p>Build. Collaborate. Innovate.</p><div class="preview-meta"><span>📍 Computer Science Block</span><span>Nov 07</span></div></div>
+      </div>
+      <div class="floating-card fc-two"><span class="avatar">✓</span><div><strong>Registration</strong><small>Completed successfully</small></div></div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="section-heading"><div><span class="eyebrow">DON'T MISS OUT</span><h2>Upcoming events</h2></div><a class="text-link" href="{{ url_for('events') }}">View all events →</a></div>
+    <div class="event-grid">
+      {% for event in events %}
+      <article class="event-card">
+        <a href="{{ url_for('event_details', event_id=event.id) }}" class="card-image" style="background-image:url('{{ event.image }}')"><span class="tag">{{ event.category }}</span></a>
+        <div class="card-body">
+          <div class="date-chip"><strong>{{ event.date[8:10] }}</strong><span>{{ event.date[5:7] }}/{{ event.date[:4] }}</span></div>
+          <div class="card-content"><h3><a href="{{ url_for('event_details', event_id=event.id) }}">{{ event.title }}</a></h3><p>📍 {{ event.location }}</p><a class="card-link" href="{{ url_for('event_details', event_id=event.id) }}">View details →</a></div>
+        </div>
+      </article>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<section class="stats-band"><div class="container stats-grid"><div><strong>500+</strong><span>Events hosted</span></div><div><strong>10K+</strong><span>Happy attendees</span></div><div><strong>98%</strong><span>Positive experiences</span></div><div><strong>24/7</strong><span>Easy access</span></div></div></section>
+
+<section class="section light-section"><div class="container">
+  <div class="center-heading"><span class="eyebrow">WHY EVENTEASE</span><h2>Everything you need,<br>in one place.</h2></div>
+  <div class="feature-grid">
+    <div class="feature"><span class="feature-icon">🔎</span><h3>Discover</h3><p>Find events by category, date and location with a simple search experience.</p></div>
+    <div class="feature"><span class="feature-icon">🎟️</span><h3>Register</h3><p>Reserve your place quickly and keep all your event registrations together.</p></div>
+    <div class="feature"><span class="feature-icon">📊</span><h3>Manage</h3><p>Organizers get a clean dashboard to create events and track registrations.</p></div>
+  </div>
+</div></section>
+{% endblock %}

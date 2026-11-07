@@ -1,0 +1,5 @@
+{% extends "base.html" %}
+{% block title %}Create Account{% endblock %}
+{% block content %}
+<section class="auth-page"><div class="auth-card"><div class="auth-brand"><span class="brand-mark">E</span><h1>Create your account</h1><p>Join EventEase and start discovering experiences.</p></div><form method="post" class="form"><label>Full name<input type="text" name="name" placeholder="Your name" required></label><label>Email address<input type="email" name="email" placeholder="you@example.com" required></label><label>Password<input type="password" name="password" placeholder="At least 6 characters" minlength="6" required></label><button class="btn primary full" type="submit">Create account →</button></form><p class="auth-footer">Already have an account? <a href="{{ url_for('login') }}">Sign in</a></p></div></section>
+{% endblock %}
